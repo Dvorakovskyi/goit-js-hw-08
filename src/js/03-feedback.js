@@ -5,11 +5,11 @@ const emailEl = document.querySelector('.feedback-form input');
 const messageEl = document.querySelector('.feedback-form textarea');
 
 const FEEDBACK_FORM_KEY = 'feedback-form-state';
-const formData = {};
+let formData = {};
 
 const handleFormData = (event) => {
     formData[event.target.name] = event.target.value;
-
+    
     const formDataJson = JSON.stringify(formData);
 
     localStorage.setItem(FEEDBACK_FORM_KEY, formDataJson);
@@ -22,9 +22,10 @@ const getLocalStorage = () => {
 
     if (isLocalStorage) {
         const formDataParsed = JSON.parse(isLocalStorage);
-
-        emailEl.value = formDataParsed.email;
-        messageEl.value = formDataParsed.message;
+        formData = formDataParsed;
+        
+        emailEl.value = formData.email || '';
+        messageEl.value = formData.message || '';
     }
 }
 
